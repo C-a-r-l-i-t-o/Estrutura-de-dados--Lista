@@ -47,6 +47,29 @@ void inserirFim(Lista *lista, int valor){
         lista-> tamanho++;
 }
 
+//funcao para remover um item da lista
+void excluiR(Lista *lista , int valor){
+    No *inicio = lista -> inicio;// se for o primeiro no 
+    No *noaexcluiR = NULL;
+    if( inicio != NULL && lista-> inicio-> valor == valor){
+        noaexcluiR = lista-> inicio;
+        lista-> inicio = noaexcluiR -> proximo;
+    } else{
+        // se for no meio da lista o NO 
+            while(inicio != NULL && inicio -> proximo != NULL && inicio -> proximo -> valor == valor){
+                inicio = inicio -> proximo;// isto é para percorrer a lista caso nao seja o inicio a ser removido             
+                }
+            if (inicio != NULL && inicio-> proximo != NULL){
+                noaexcluiR = inicio-> proximo;
+                inicio-> proximo= noaexcluiR-> proximo;
+            }
+    } if (noaexcluiR){
+
+        free(noaexcluiR);
+        lista-> tamanho --; 
+    }
+
+}
 
 
 
@@ -75,7 +98,7 @@ int main(){
     lista.tamanho = 0;
     
     do{
-        printf("1-Inserir no inicio \n2-Imprimir \n3-Inserir no finalzn \n5-Sair \n");
+        printf("1-Inserir no inicio \n2-Imprimir \n3-Inserir no final \n4-Remover elemento \n5-Sair \n");
         scanf("%d", &opcao);
         
         switch(opcao){
@@ -92,7 +115,11 @@ int main(){
                 scanf("%d", &valor); 
               inserirFim(&lista, valor);
               break;
-
+            case 4:
+                printf("Digite um valor desejado a ser removido: \n");
+                scanf("%d", &valor); 
+              excluiR(&lista, valor);
+              break;    
             case 5:
                printf("Final! \n");
                break;      
